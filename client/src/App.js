@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import Main_Page from './components/Main_Page';
+import Menu from './components/Menu'
+import NoMatch from './components/NoMatch';
+import NavBar from './components/NavBar';
+import Login from './components/Login';
+import Item from './components/Item';
+import ProtectedRoute from './components/ProtectedRoute';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+
+
+const App = () => (
+  <div>
+    <NavBar />
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route exact path="/" component={Main_Page} />
+      <ProtectedRoute exact path="/menu" component={Menu} />
+      <ProtectedRoute exact path="/item/:id" component={Item} />
+      <Route component={NoMatch} />
+    </Switch>
+  </div>
+);
+
 
 export default App;
